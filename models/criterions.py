@@ -1,4 +1,4 @@
-#Adapted from https://github.com/Wenxuan-1119/TransBTS
+#Adopted from https://github.com/Wenxuan-1119/TransBTS
 import torch
 import logging
 import torch.nn.functional as F
