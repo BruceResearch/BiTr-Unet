@@ -1,4 +1,4 @@
-# Adapted from https://github.com/MIC-DKFZ/nnunet
+# Adopted from https://github.com/MIC-DKFZ/nnunet
 
 import numpy as np
 from medpy import metric
