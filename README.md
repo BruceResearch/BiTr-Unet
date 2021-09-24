@@ -11,11 +11,13 @@ This repo is the source code for [BiTr-Unet: a CNN-Transformer Combined Network 
 - imageio
 
 ## Data Mounting
-Mount the folders of BraTS 2021 training and validation dataset respectively under the folder "data". Modify path and Run "generate_train_list.py" and "generate_validation_list.py" to generate the train.txt and valid.txt, which are required for the next steps.
+Mount the folders of BraTS 2021 training and validation dataset respectively under the folder "data". Modify path and Run "generate_train_list.py" and "generate_validation_list.py" to generate the train.txt and valid.txt, which are required for the next steps. Unzip "output_size_template.zip" and keep the unzipped file where it is, which is worked as a reference for the model to automatically output the segmentation with a proper size.
 
 `python3 generate_train_list.py`
 
 `python3 generate_valid_list.py`
+
+`unzip output_size_template.zip`
 
 Here is an example illustrating the proper way to mount the BraTS 2021 dataset:
 "./data/BraTS2021_TrainingData/case_ID/case_ID_flair.nii.gz"
@@ -42,9 +44,6 @@ Mount your output folder of nii.gz files under the postprocess folder. Modify pa
 `python3 ensemble_by_majority_voting.py`
 
 `python3 connected_components.py`
-
-##Pre-trained model
-A pre-trained model trained with BraTS 2021 Training data for 7049 epochs is stored under the trained_model folder. 
 
 ## Reference
 1.[TransBTS](https://github.com/Wenxuan-1119/TransBTS)
