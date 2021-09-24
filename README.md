@@ -1,8 +1,12 @@
 # BiTr-Unet: a CNN-Transformer Combined Network for MRI Brain Tumor Segmentation
 This repo is the source code for [BiTr-Unet: a CNN-Transformer Combined Network for MRI Brain Tumor Segmentation]. The dataset that this model is designed for is BraTS 2021, which can be retrieved from https://www.synapse.org/#!Synapse:syn25829067/wiki/611501
 ## BiTr-Unet:
-![BiTr-Unet](https://github.com/Wenxuan-1119/TransBTS/blob/main/figure/TransBTS.PNG "TransBTS")
+![BiTr-Unet](https://github.com/JustaTinyDot/BiTr-Unet/tree/main/figure/graph1.jpg "BiTr-Unet")
 Model Architecture of BiTr-Unet.
+
+##Segmentation display:
+![Segmentation display](https://github.com/JustaTinyDot/BiTr-Unet/tree/main/figure/predict_set.png "predict_set")
+Predict Set.
 
 ## Requirements
 - python 3.7
