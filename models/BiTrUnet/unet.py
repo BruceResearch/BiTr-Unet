@@ -1,4 +1,4 @@
-#Adapted from https://github.com/lescientifik/open_brats2020
+#Adopted from https://github.com/lescientifik/open_brats2020
 """A small Unet-like zoo"""
 import torch
 from torch import nn
