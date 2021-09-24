@@ -1,4 +1,4 @@
-# adapt from https://github.com/MIC-DKFZ/BraTS2017
+# adopted from https://github.com/MIC-DKFZ/BraTS2017
 
 import torch.nn as nn
 import torch.nn.functional as F
