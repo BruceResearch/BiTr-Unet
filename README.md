@@ -45,6 +45,9 @@ Mount your output folder of nii.gz files under the postprocess folder. Modify pa
 
 `python3 connected_components.py`
 
+## Validation score
+Use the evaluation folder to calculation the Dice Score of the segmentation of the validation data.
+
 ## Reference
 1.[TransBTS](https://github.com/Wenxuan-1119/TransBTS)
 2.[two-stage-VAE-Attention-gate-BraTS2020](https://github.com/shu-hai/two-stage-VAE-Attention-gate-BraTS2020)
