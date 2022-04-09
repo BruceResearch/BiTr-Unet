@@ -7,6 +7,7 @@ from models.BiTrUnet.Unet_skipconnection import Unet
 from models.BiTrUnet.unet import Att_EquiUnet
 from models.BiTrUnet.layers import ConvBnRelu, UBlock, conv1x1, UBlockCbam, CBAM
 
+#define the encoder class
 class BiTransformerUnet(nn.Module):
     def __init__(
         self,
@@ -103,6 +104,7 @@ class BiTransformerUnet(nn.Module):
                 padding=1
             )
 
+        #Encoder 
         self.Unet = Att_EquiUnet(inplanes = 16, num_classes = 4 , width = 16)
         self.bn = nn.BatchNorm3d(256)
         self.bn_4 = nn.BatchNorm3d(128)
@@ -216,7 +218,7 @@ class BiTransformerUnet(nn.Module):
         return x
 
 
-
+#Define the Decoder class, which takes the encoder part as the input
 class BiTransUnet(BiTransformerUnet):
     def __init__(
         self,
@@ -330,6 +332,7 @@ class BiTransUnet(BiTransformerUnet):
         y = self.Softmax(y)
         return y
 
+#The following classes are specific operations for each decoder layer
 class EnBlock1(nn.Module):
     def __init__(self, in_channels):
         super(EnBlock1, self).__init__()
@@ -472,7 +475,7 @@ class DeBlock(nn.Module):
 
 
 
-
+#Combine the encoder and the decoder to run the whole BiTr-Unet
 def BiTrUnet(dataset='brats', _conv_repr=True, _pe_type="learned"):
 
     if dataset.lower() == 'brats':
