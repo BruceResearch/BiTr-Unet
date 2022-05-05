@@ -57,7 +57,26 @@ Use the evaluation folder to calculation the Dice Score of the segmentation of t
 3.[open_brats2020](https://github.com/lescientifik/open_brats2020)
 4.[nnUNet](https://github.com/MIC-DKFZ/nnunet)
 
-
+## Citations
+```bibtex
+@misc{https://doi.org/10.48550/arxiv.2109.12271,
+  doi = {10.48550/ARXIV.2109.12271},
+  
+  url = {https://arxiv.org/abs/2109.12271},
+  
+  author = {Jia, Qiran and Shu, Hai},
+  
+  keywords = {Image and Video Processing (eess.IV), Artificial Intelligence (cs.AI), Computer Vision and Pattern Recognition (cs.CV), Machine Learning (cs.LG), FOS: Electrical engineering, electronic engineering, information engineering, FOS: Electrical engineering, electronic engineering, information engineering, FOS: Computer and information sciences, FOS: Computer and information sciences},
+  
+  title = {BiTr-Unet: a CNN-Transformer Combined Network for MRI Brain Tumor Segmentation},
+  
+  publisher = {arXiv},
+  
+  year = {2021},
+  
+  copyright = {arXiv.org perpetual, non-exclusive license}
+}
+```
 
 
 
