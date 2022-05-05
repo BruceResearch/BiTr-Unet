@@ -10,6 +10,9 @@ This repo is the source code for [BiTr-Unet: a CNN-Transformer Combined Network 
 - SimpleITK
 - imageio
 
+### Environment
+Please prepare an environment with python=3.7, and then use the command "pip install -r requirements.txt" for the dependencies.
+
 ## Data Mounting
 Mount the folders of BraTS 2021 training and validation dataset respectively under the folder "data". Modify path and Run "generate_train_list.py" and "generate_validation_list.py" to generate the train.txt and valid.txt, which are required for the next steps. Unzip "output_size_template.zip" and keep the unzipped file where it is, which is worked as a reference for the model to automatically output the segmentation with a proper size.
 
