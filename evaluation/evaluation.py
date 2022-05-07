@@ -1,3 +1,4 @@
+#Modified from the following:
 # -*- coding: utf-8 -*-
 # Implementation of Wang et al 2017: Automatic Brain Tumor Segmentation using Cascaded Anisotropic Convolutional Neural Networks. https://arxiv.org/abs/1709.00382
 
@@ -7,13 +8,14 @@
 #
 # Distributed under the BSD-3 licence. Please see the file licence.txt
 # This software is not certified for clinical use.
-#
+
 from __future__ import absolute_import, print_function
 import os
 import sys
 sys.path.append('./')
 import numpy as np
 from data_process import load_3d_volume_as_array, binary_dice3d
+
 
 def get_ground_truth_names(g_folder, patient_names_file):
     with open(patient_names_file) as f:
@@ -49,16 +51,25 @@ def dice_of_brats_data_set(gt_names, seg_names, type_idx):
         g_volume = load_3d_volume_as_array(gt_names[i])
         s_volume = load_3d_volume_as_array(seg_names[i])
         dice_one_volume = []
-        if(type_idx ==0): # whole tumor
+        if(type_idx ==0): #ET
+            s_volume[s_volume == 2 & s_volume ==1] = 0
+            g_volume[g_volume == 2 & g_volume ==1] = 0
             temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
             dice_one_volume = [temp_dice]
-        elif(type_idx == 1): # tumor core
-            s_volume[s_volume == 2] = 0
-            g_volume[g_volume == 2] = 0
+        elif(type_idx == 1): # WT
+            s_volume[s_volume == 1 & s_volume ==4] = 0
+            g_volume[g_volume == 1 & g_volume ==4] = 0
             temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
             dice_one_volume = [temp_dice]
+        elif(type_idx == 2): # TC
+            s_volume[s_volume == 2 & s_volume ==4] = 0
+            g_volume[g_volume == 2 & g_volume ==4] = 0
+            temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
+            dice_one_volume = [temp_dice]
+      
+            
         else:
-            for label in [1, 2, 3, 4]: # dice of each class
+            for label in [1, 2, 4]: # dice of each class
                 temp_dice = binary_dice3d(s_volume == label, g_volume == label)
                 dice_one_volume.append(temp_dice)
         dice_all_data.append(dice_one_volume)
@@ -72,7 +83,7 @@ if __name__ == '__main__':
     g_folder = '/scratch/qj2022/TransBTS-main-2/data/BraTS2021_ValidationData'
     patient_names_file = '/scratch/qj2022/TransBTS-main-2/data/BraTS2021_ValidationData/valid.txt'
 
-    test_types = ['whole','core', 'all']
+    test_types = ['ET','WT', 'TC']
     gt_names  = get_ground_truth_names(g_folder, patient_names_file)
     seg_names = get_segmentation_names(s_folder, patient_names_file)
     for type_idx in range(3):
@@ -86,7 +97,6 @@ if __name__ == '__main__':
         np.savetxt(s_folder + '/dice_{0:}_std.txt'.format(test_type), dice_std)
         print('tissue type', test_type)
         if(test_type == 'all'):
-            print('tissue label', [1, 2, 3, 4])
+            print('tissue label', [1, 2, 4])
         print('dice mean  ', dice_mean)
         print('dice std   ', dice_std)
- 
