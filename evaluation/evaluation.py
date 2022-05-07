@@ -214,13 +214,19 @@ def hd_of_brats_data_set(gt_names, seg_names, type_idx):
         s_volume = load_3d_volume_as_array(seg_names[i])
         hd_one_volume = []
         if(type_idx ==0): #ET
-            temp_hd = Hausdorff_distance(g_volume,s_volume)
+            s_volume[s_volume == 2] = 0
+            s_volume[s_volume == 1] = 0 
+            g_volume[g_volume == 2] = 0
+            g_volume[g_volume == 1] = 0
+            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
             hd_one_volume = temp_hd
         elif(type_idx == 1): # WT
-            temp_hd = Hausdorff_distance(g_volume,s_volume)
+            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
             hd_one_volume = temp_hd
         elif(type_idx == 2): # TC
-            temp_hd = Hausdorff_distance(g_volume,s_volume)
+            s_volume[s_volume == 2] = 0  
+            g_volume[g_volume == 2] = 0
+            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
             hd_one_volume = temp_hd
 
     return hd_one_volume
@@ -230,9 +236,9 @@ if __name__ == '__main__':
     
     
     
-    s_folder = '/scratch/qj2022/TransBTS-main-2/output/submission/TransBTS20212021-07-30'
-    g_folder = '/scratch/qj2022/TransBTS-main-2/data/BraTS2021_ValidationData'
-    patient_names_file = '/scratch/qj2022/TransBTS-main-2/data/BraTS2021_ValidationData/valid.txt'
+    s_folder = '/Users/qiranjia19961112/Desktop/NYU_RESEARCH/Experiment/Output/ensembleBITRANS'
+    g_folder = '/Users/qiranjia19961112/Desktop/NYU_RESEARCH/Experiment/Output/Bi-Trans6000'
+    patient_names_file = '/Users/qiranjia19961112/Desktop/NYU_RESEARCH/Experiment/Output/Bi-Trans6000/valid.txt'
 
     test_types = ['ET','WT', 'TC']
     gt_names  = get_ground_truth_names(g_folder, patient_names_file)
@@ -247,21 +253,25 @@ if __name__ == '__main__':
         np.savetxt(s_folder + '/dice_{0:}_mean.txt'.format(test_type), dice_mean)
         np.savetxt(s_folder + '/dice_{0:}_std.txt'.format(test_type), dice_std)
 
+        '''
         sensitivity = sensitivity_of_brats_data_set(gt_names, seg_names, type_idx)
         np.savetxt(s_folder + '/sensitivity_{0:}.txt'.format(test_type), sensitivity)
 
         specificity = specificity_of_brats_data_set(gt_names, seg_names, type_idx)
         np.savetxt(s_folder + '/specificity_{0:}.txt'.format(test_type), specificity)
+        '''
 
         hd = hd_of_brats_data_set(gt_names, seg_names, type_idx)
-        np.savetxt(s_folder + '/Hausdorff_distance_{0:}.txt'.format(test_type), hd)
+
 
         print('tissue type', test_type)
         if(test_type == 'all'):
             print('tissue label', [1, 2, 4])
         print('dice mean  ', dice_mean)
         print('dice std   ', dice_std)
+        '''
         print('sensitivity  ',sensitivity)
         print('specificity  ',specificity)
+        '''
         print('Hausdorff_distance  ',hd)
  
