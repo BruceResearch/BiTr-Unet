@@ -59,17 +59,11 @@ def dice_of_brats_data_set(gt_names, seg_names, type_idx):
             temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
             dice_one_volume = [temp_dice]
         elif(type_idx == 1): # WT
-            s_volume[s_volume == 1] = 0
-            s_volume[s_volume == 4] = 0 
-            g_volume[g_volume == 1] = 0
-            g_volume[g_volume == 4] = 0
             temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
             dice_one_volume = [temp_dice]
         elif(type_idx == 2): # TC
-            s_volume[s_volume == 2] = 0
-            s_volume[s_volume == 4] = 0 
+            s_volume[s_volume == 2] = 0  
             g_volume[g_volume == 2] = 0
-            g_volume[g_volume == 4] = 0
             temp_dice = binary_dice3d(s_volume > 0, g_volume > 0)
             dice_one_volume = [temp_dice]
       
