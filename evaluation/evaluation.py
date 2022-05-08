@@ -19,6 +19,7 @@ import numpy as np
 from data_process import load_3d_volume_as_array, binary_dice3d
 from scipy import ndimage
 
+
 def sensitivity(seg,ground): 
     #computs false negative rate
     num=np.sum(np.multiply(ground, seg))
@@ -62,6 +63,7 @@ def specificity_core(seg,ground):
     seg_[seg_==2]=0
     ground_[ground_==2]=0
     return specificity(seg_>0,ground_>0)
+
 
 def border_map(binary_img,neigh):
     """
@@ -107,6 +109,19 @@ def Hausdorff_distance(ref,seg):
     hausdorff_distance = np.max(
         [np.max(ref_border_dist), np.max(seg_border_dist)])
     return hausdorff_distance
+
+def hausdorff_whole (seg,ground):
+    return Hausdorff_distance(seg==0,ground==0)
+
+def hausdorff_en (seg,ground):
+    return Hausdorff_distance(seg!=4,ground!=4)
+
+def hausdorff_core (seg,ground):
+    seg_=np.copy(seg)
+    ground_=np.copy(ground)
+    seg_[seg_==2]=0
+    ground_[ground_==2]=0
+    return Hausdorff_distance(seg_==0,ground_==0)
 
 
 
@@ -214,19 +229,15 @@ def hd_of_brats_data_set(gt_names, seg_names, type_idx):
         s_volume = load_3d_volume_as_array(seg_names[i])
         hd_one_volume = []
         if(type_idx ==0): #ET
-            s_volume[s_volume == 2] = 0
-            s_volume[s_volume == 1] = 0 
-            g_volume[g_volume == 2] = 0
-            g_volume[g_volume == 1] = 0
-            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
+  
+            temp_hd = hausdorff_en(s_volume,g_volume)
             hd_one_volume = temp_hd
         elif(type_idx == 1): # WT
-            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
+            temp_hd = hausdorff_whole(s_volume,g_volume)
             hd_one_volume = temp_hd
         elif(type_idx == 2): # TC
-            s_volume[s_volume == 2] = 0  
-            g_volume[g_volume == 2] = 0
-            temp_hd = Hausdorff_distance(g_volume>0,s_volume>0)
+
+            temp_hd = hausdorff_core(s_volume,g_volume)
             hd_one_volume = temp_hd
 
     return hd_one_volume
@@ -274,4 +285,3 @@ if __name__ == '__main__':
         print('specificity  ',specificity)
         '''
         print('Hausdorff_distance  ',hd)
- 
