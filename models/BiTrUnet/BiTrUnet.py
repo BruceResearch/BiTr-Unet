@@ -236,7 +236,7 @@ class BiTransUnet(BiTransformerUnet):
         conv_patch_representation=True,
         positional_encoding_type="learned",
     ):
-        super(BTS, self).__init__(
+        super(BiTransformerUnet, self).__init__(
             img_dim=img_dim,
             patch_dim=patch_dim,
             num_channels=num_channels,
